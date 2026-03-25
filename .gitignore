@@ -1,0 +1,23 @@
+echo "" > .gitignore
+```
+
+Then open `.gitignore` in VS Code and paste this:
+```
+# Python
+venv/
+__pycache__/
+*.pyc
+.env
+
+# Node
+node_modules/
+dist/
+build/
+
+# Data files (optional - remove if you want these on GitHub)
+*.csv
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
