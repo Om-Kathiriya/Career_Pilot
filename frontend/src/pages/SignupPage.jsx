@@ -166,9 +166,8 @@ export default function SignupPage() {
           <div className="w-full max-w-sm space-y-4">
             {stepTitles.map((s, i) => (
               <div key={i} className={`flex items-center gap-4 p-4 rounded-xl transition-all ${step === i ? 'bg-white/20 backdrop-blur-sm' : ''}`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
-                  step > i ? 'bg-green-400 text-white' : step === i ? 'bg-white text-primary-600' : 'bg-white/20 text-white/60'
-                }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${step > i ? 'bg-green-400 text-white' : step === i ? 'bg-white text-primary-600' : 'bg-white/20 text-white/60'
+                  }`}>
                   {step > i ? <CheckCircle size={20} /> : i + 1}
                 </div>
                 <div>
@@ -199,9 +198,8 @@ export default function SignupPage() {
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className={`h-2 w-16 rounded-full transition-all ${
-                  step >= i ? 'bg-gradient-to-r from-primary-500 to-purple-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 w-16 rounded-full transition-all ${step >= i ? 'bg-gradient-to-r from-primary-500 to-purple-500' : 'bg-gray-200'
+                  }`}
               />
             ))}
           </div>
@@ -233,8 +231,8 @@ export default function SignupPage() {
                           required: 'Email is required',
                           pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email' }
                         })}
-                        disabled={otpSent}
-                        className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:bg-white transition-all disabled:bg-gray-100"
+                        readOnly={otpSent}
+                        className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:bg-white transition-all read-only:bg-gray-100 read-only:cursor-not-allowed"
                         placeholder="you@example.com"
                       />
                     </div>
@@ -267,6 +265,8 @@ export default function SignupPage() {
                           className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 text-center text-2xl tracking-[0.5em] font-mono"
                           placeholder="000000"
                         />
+                        {/* Hidden input to keep email in form data when disabled */}
+                        <input type="hidden" {...register('email')} />
                         <p className="text-center text-gray-500 text-sm mt-3">
                           {countdown > 0 ? (
                             <span>Resend OTP in <span className="font-semibold text-primary-600">{countdown}s</span></span>
@@ -361,13 +361,17 @@ export default function SignupPage() {
                   )}
 
                   {otpVerified && (
-                    <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
-                      <CheckCircle className="text-green-600 flex-shrink-0" size={20} />
-                      <div>
-                        <p className="font-medium text-green-800">{email}</p>
-                        <p className="text-sm text-green-600">Verified email address</p>
+                    <>
+                      <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
+                        <CheckCircle className="text-green-600 flex-shrink-0" size={20} />
+                        <div>
+                          <p className="font-medium text-green-800">{email}</p>
+                          <p className="text-sm text-green-600">Verified email address</p>
+                        </div>
                       </div>
-                    </div>
+                      {/* Hidden input to include email in form submission when verified */}
+                      <input type="hidden" {...register('email')} />
+                    </>
                   )}
 
                   <div>
