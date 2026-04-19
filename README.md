@@ -34,7 +34,7 @@ You'll need Node 18+, Python 3.10+, and MongoDB running locally.
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate
+venv/bin/activate
 pip install -r requirements.txt
 python -m spacy download en_core_web_md
 cp .env.example .env
